@@ -1,0 +1,149 @@
+/*
+https://kuler.adobe.com/#themeID/2244541
+#FFFFED
+#FF2C38
+#FF9A3A
+#FFF040
+#67D9FF
+			
+https://kuler.adobe.com/#themeID/238698
+#88A825
+#35203B
+#911146
+#CF4A30
+#ED8C2B
+			
+#fff000
+#80c0ff
+#aad1f7
+#f9ca69
+#f7a700
+#efba4a
+#d2f854
+#9ec70c
+#ecc9f7
+#54b70b
+#b688cf
+ */
+@font-face {
+	font-family: 'BitstreamVeraSansMonoRoman';
+	src: url('font/VeraMono-webfont.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+			
+html{
+	font-size: 0.8em;
+	font-family: sans-serif;
+}
+html, body{
+	width: 100%;
+	height: 100%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+			
+#regex-from{
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+				
+}
+			
+.split{
+	padding: 0 0 0 10px;
+	margin: 10px 0 0 0;
+}
+			
+.text, .output{
+	display: inline-block;
+	width: 50%;
+	vertical-align: top;
+	margin: 0 0 0 10px;
+}
+.input-field.text{
+	margin-left: -10px;
+}
+.input-field.replace-pattern, .input-group{
+	margin-top: 10px;
+}
+#text, #output{
+	background: #CCCCCC;
+	min-height: 400px;
+}
+			
+.output label{
+	display: block;
+}
+			
+#regexp, #replace-pattern, #text, #output{
+	display: block;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-moz-appearance: textfield-multiline;
+	appearance: textfield-multiline;
+	width: 100%;
+	padding: 4px;
+	outline: none;
+			
+	font-family: 'BitstreamVeraSansMonoRoman', monospace;
+    font-size: 0.9rem;
+    font-size-adjust: none;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    letter-spacing: normal;
+    line-height: normal;
+	margin: 1px 0;
+			
+	overflow: auto;
+			
+	white-space: pre;
+}
+#replace-pattern{
+	/*resize: vertical;*/
+}
+.label-container, .input-field{
+	margin: 0;
+}
+.option{
+	display: inline-block;
+}
+			
+.match{
+	display: inline-block;
+	background: white;
+	padding: 1px 2px;
+	margin: -1px -2px;
+	box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5);
+}
+.match:hover{
+	position: relative;
+	animation: match-zoom 0.2s;
+	border-radius: 6px;
+	margin: -2px -4px;
+	padding: 1px 3px;
+	background: #ff9430;
+	background: linear-gradient(to bottom, #ff9430 0%,#ea862e 100%);
+	border: 1px solid #ff9430;
+}
+@keyframes match-zoom{
+	from{
+		transform: scale(1.07, 1.07);
+	}to{
+		transform: scale(1, 1);
+	}
+}
+.capture{
+	display: inline-block;
+}
+.capture:hover{
+	color: #020202;
+	/*background: #ED8C2B;
+	border-radius: 2px;*/
+}
