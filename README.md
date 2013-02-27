@@ -15,10 +15,10 @@ It's use JavaScript's regular expression (supported by the browser)
 
 * [critical] implements save/restore selection in `#text`. See `_updateHighlights()` and http://stackoverflow.com/a/5596688/470117
 * enhance user interface!
-* replace all `"\n"` to `"\\n"` in label of matches in `#text` and `#output`
 * implements in `#text` and `#output` a HTML renderer of RAW text (`\t\n\r`) (or using the `<pre>` wrapper trick). It's a [Firefox bug](https://bugzilla.mozilla.org/show_bug.cgi?id=116083)
 * implements a RegExp parser like [RegExr](http://gskinner.com/RegExr/) + predefined and community patterns (use datalist?)
+* check if `ReplacePatternSlicer` handle correctly escaped chars (specially unknowns or marlformed escaped chars like \10 \z \x2 etc.)
+* replace `ReplacePatternSlicer` by `string.replacer(regexp, replacerFunction)`?
 * add support of [XRegExp](http://xregexp.com/) as an option (native or XRegExp)
 * add timers for grouping `input` and `change` multiple frame events
-* check if `ReplacePatternSlicer` handle correctly escaped chars (specially unknowns or marlformed escaped chars like \10 \z \x2 etc.)
 * add process timing to: detect a potential bug (there are infinites loops here) or a heavy task could required be in worker (larges texts or lot of matches)

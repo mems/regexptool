@@ -304,6 +304,7 @@ RegExpTool.prototype = Object.seal({
 	_textElm: null,
 	_outputElm: null,
 	_matches: [],
+	_specialCharsSelector: new RegExp("(\\|\b|\f|\n|\r|\t|\v)", "gi"),
 	_domLoadedListener: function(event){
 					
 		this._regExpElm = document.getElementById("regexp");
@@ -473,6 +474,27 @@ RegExpTool.prototype = Object.seal({
 			}
 		}
 	},
+	_specialCharReplacer: function(match, p1, offset, string){
+		console.log(arguments)
+		var charMap = {
+			"\\": "\\\\",//backslash
+			"\b": "\\b",//backspace
+			"\f": "\\f",//form feed
+			"\n": "\\n",//line feed
+			"\r": "\\r",//carriage return
+			"\t": "\\t",//horizontal tab
+			"\v": "\\v"//vertical tab
+		};
+		if(p1 in charMap){
+			return charMap[p1];
+		}
+		return p1;
+	},
+	_replaceSpecialChar: function(str){
+		//reset global index
+		this._specialCharsSelector.lastIndex = 0;
+		return str.replace(this._specialCharsSelector, this._specialCharReplacer);
+	},
 	_updateHighlights: function(){
 		var textElm = this._textElm,
 			matches = this._matches,
@@ -512,9 +534,9 @@ RegExpTool.prototype = Object.seal({
 			captureCount = match.length - 1;
 			node = document.createElement("span");
 			node.className = "match";
-			title = "match: " + matchStr + "\nindex: " + matchStartIndex + "\nlength: " + matchLength + "\ngroups: " + captureCount;
+			title = "match: " + this._replaceSpecialChar(matchStr) + "\nindex: " + matchStartIndex + "\nlength: " + matchLength + "\ngroups: " + captureCount;
 			for(captureIndex = 0; captureIndex < captureCount; captureIndex++){
-				title += "\n\tgroup " + captureIndex + ": " + match[captureIndex + 1];
+				title += "\n\tgroup " + captureIndex + ": " + this._replaceSpecialChar(match[captureIndex + 1]);
 			}
 			node.title = title;
 			node.appendChild(document.createTextNode(matchStr));
@@ -594,7 +616,7 @@ RegExpTool.prototype = Object.seal({
 			captureCount = match.length - 1;
 			node = document.createElement("span");
 			node.className = "match";
-			node.title = "match: " + matchStr + "\nindex: " + matchIndex + "\npattern: " + replacePattern + "\ncaptures: " + captureCount;
+			node.title = "match: " + this._replaceSpecialChar(matchStr) + "\nindex: " + matchIndex + "\npattern: " + this._replaceSpecialChar(replacePattern) + "\ncaptures: " + captureCount;
 			if(replace){
 				//default patterns
 				patterns["$`"] = text.substring(0, matchIndex);
@@ -604,7 +626,7 @@ RegExpTool.prototype = Object.seal({
 				for(subIndex = 0; subIndex < captureCount; subIndex++){
 					capture = match[subIndex + 1];
 					patterns["$" + (subIndex + 1)] = capture;
-					node.title += "\n\tcapture" + subIndex + " ($" + (subIndex + 1) + "): " + capture;
+					node.title += "\n\tcapture" + subIndex + " ($" + (subIndex + 1) + "): " + this._replaceSpecialChar(capture);
 				}
 							
 				for(subIndex = 0; subIndex < sliceCount; subIndex++){
@@ -621,7 +643,7 @@ RegExpTool.prototype = Object.seal({
 				}
 			}else{
 				for(subIndex = 0; subIndex < captureCount; subIndex++){
-					node.title += "\n\tcapture" + subIndex + ": " + match[subIndex + 1];
+					node.title += "\n\tcapture" + subIndex + ": " + this._replaceSpecialChar(match[subIndex + 1]);
 				}
 							
 				node.appendChild(document.createTextNode(matchStr));
